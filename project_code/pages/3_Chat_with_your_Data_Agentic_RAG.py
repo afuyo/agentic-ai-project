@@ -16,6 +16,10 @@ import streamlit as st
 # os: For file operations and environment variables
 import os
 
+# Load environment variables from .env file
+from dotenv import load_dotenv
+load_dotenv()
+
 # ChatOpenAI: Connects to OpenAI's GPT models (like ChatGPT)
 # OpenAIEmbeddings: Converts text to vectors (numbers) for similarity search
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
@@ -62,7 +66,8 @@ st.caption("AI agent that intelligently searches and answers from your documents
 # =========================================================
 
 if "openai_key" not in st.session_state:
-    st.session_state.openai_key = ""  # Store OpenAI API key
+    # Initialize from environment variable if available
+    st.session_state.openai_key = os.getenv("OPENAI_API_KEY", "")
 
 if "vector_store" not in st.session_state:
     st.session_state.vector_store = None  # Store document database

@@ -16,6 +16,10 @@ import streamlit as st
 # os: For setting environment variables (API keys)
 import os
 
+# Load environment variables from .env file
+from dotenv import load_dotenv
+load_dotenv()
+
 # ChatOpenAI: Connects to OpenAI's GPT models (like ChatGPT)
 from langchain_openai import ChatOpenAI
 
@@ -45,10 +49,12 @@ st.caption("AI agent with web search capabilities")
 # =========================================================
 
 if "openai_key" not in st.session_state:
-    st.session_state.openai_key = ""  # Store OpenAI API key
+    # Initialize from environment variable if available
+    st.session_state.openai_key = os.getenv("OPENAI_API_KEY", "")
 
 if "tavily_key" not in st.session_state:
-    st.session_state.tavily_key = ""  # Store Tavily API key
+    # Initialize from environment variable if available
+    st.session_state.tavily_key = os.getenv("TAVILY_API_KEY", "")
 
 if "agent" not in st.session_state:
     st.session_state.agent = None  # Store the agent instance

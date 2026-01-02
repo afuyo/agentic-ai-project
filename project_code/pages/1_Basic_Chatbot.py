@@ -9,6 +9,13 @@ This is your starting point - the solution will show you how to add intelligent 
 # IMPORTS
 # =============================================================================
 
+# Environment variables
+import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
+
 # Streamlit: Framework for building web apps
 import streamlit as st
 
@@ -44,7 +51,8 @@ st.caption("A friendly AI assistant that chats with you")
 # =============================================================================
 
 if "openai_key" not in st.session_state:
-    st.session_state.openai_key = ""
+    # Initialize from environment variable if available
+    st.session_state.openai_key = os.getenv("OPENAI_API_KEY", "")
 
 if "llm" not in st.session_state:
     st.session_state.llm = None
