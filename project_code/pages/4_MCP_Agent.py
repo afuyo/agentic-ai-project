@@ -20,6 +20,10 @@ import asyncio
 # os: For setting environment variables (API keys)
 import os
 
+# Load environment variables from .env file
+from dotenv import load_dotenv
+load_dotenv()
+
 # MultiServerMCPClient: Connects to multiple MCP servers at once
 from langchain_mcp_adapters.client import MultiServerMCPClient
 
@@ -49,10 +53,12 @@ st.caption("AI agent with MCP server integration")
 # =========================================================
 
 if "openai_key" not in st.session_state:
-    st.session_state.openai_key = ""  # Store OpenAI API key
+    # Initialize from environment variable if available
+    st.session_state.openai_key = os.getenv("OPENAI_API_KEY", "")
 
 if "mcp_server_url" not in st.session_state:
-    st.session_state.mcp_server_url = ""  # Store MCP server URL
+    # Initialize from environment variable if available
+    st.session_state.mcp_server_url = os.getenv("MCP_SERVER_URL", "")
 
 if "mcp_agent" not in st.session_state:
     st.session_state.mcp_agent = None  # Store the agent instance

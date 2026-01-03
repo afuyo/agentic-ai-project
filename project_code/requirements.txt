@@ -14,6 +14,7 @@ streamlit>=1.28.0
 # Core Dependencies
 tiktoken==0.11.0
 faiss-cpu==1.12.0
+python-dotenv==1.0.0
 
 # Search feature
 tavily-python==0.7.1
